@@ -1,6 +1,7 @@
 package com.mateo.cars.domain;
 
 public class Car {
+    private String id;
     private String brand;
     private String model;
     private int yearOfProduction;
@@ -9,11 +10,20 @@ public class Car {
     public Car() {
     }
 
-    public Car(String brand, String model, int yearOfProduction, String color) {
+    public Car(String id,String brand, String model, int yearOfProduction, String color) {
+        this.id = id;
         this.brand = brand;
         this.model = model;
         this.yearOfProduction = yearOfProduction;
         this.color = color;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getBrand() {
@@ -51,7 +61,8 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "brand='" + brand + '\'' +
+                "id='" + id + '\'' +
+                ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
                 ", yearOfProduction=" + yearOfProduction +
                 ", color='" + color + '\'' +
