@@ -4,4 +4,4 @@ Project developed in Springboot in order to understand the dependency inversion 
 
 The architecture proposed for the understanding of the dependency inversion concept can be seen in the next figure:
 
-[Imgur](https://imgur.com/3WoNZEu)
+(https://imgur.com/3WoNZEu)
