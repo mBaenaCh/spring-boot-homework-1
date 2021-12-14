@@ -1,4 +1,5 @@
 package com.mateo.cars.controller;
+
 import com.mateo.cars.domain.Car;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,14 @@ import java.util.List;
 *  Con Springboot, usaremos la depedencia "RestController" para dotar de esas funcionalidades a nuestra clase*/
 
 @RestController
-@RequestMapping //Nos permitira modelar toda la funcionalidad alrededor de una misma ruta
+@RequestMapping(value="/cars") //Nos permitira modelar toda la funcionalidad alrededor de una misma ruta
 public class CarsController {
+    
 
     @GetMapping
     public List<Car> getCars(){
-        return List.of();
+        //return List.of();
+        return null;
     }
 
     @GetMapping(value = "/{id}")
