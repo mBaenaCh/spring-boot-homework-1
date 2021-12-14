@@ -65,11 +65,22 @@ public class DatasourceBDCarsRepository implements CarsRepository{
         List<Car> cars = new ArrayList<>();
         String query = "SELECT * FROM cars_mateobch";
 
+
         try (
+                /* Instanciamos una nueva conexion a la base de datos en funcion del datasource
+                *
+                *  Instanciamos un nuevo objeto Statement en funcion de la conexion realizada
+                *  dado que con este ejecutaremos el query que nos retornara una consulta a la bd
+                * */
                 Connection connection = dataSource.getConnection();
                 Statement est = connection.createStatement();
-                ResultSet rs = est.executeQuery(query);
+                ResultSet rs = est.executeQuery(query); //Almacena el resultado de la consulta realizada
                 ){
+            /* Deberemos iterar atraves del resultado de la consulta para retornar y mapear cada elemento
+               a un objeto de nuestro modelo.
+
+               Finalmente, solo añadimos el objeto mapeado a la lista que debemos retornar
+            * */
             while(rs.next()){
                 String id = rs.getString("car_id");
                 String brand = rs.getString("brand");
