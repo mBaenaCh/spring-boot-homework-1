@@ -5,15 +5,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/* Con nuestro controller definiremos las funcionalidades que actuaran sobre nuestor modelo del dominio
+/* Con nuestro controller definiremos las funcionalidades que actuaran sobre nuestro modelo del dominio
 *
 *  Dado que nuestro sistema es una API REST, vamos a exponer estas funcionalidades por medio de rutas y
 *  metodos HTTP
 *
-*  Con Springboot, usaremos la depedencia "RestController" para dotar de esas funcionalidades a nuestra clase*/
-
+*  Con Springboot, usaremos la anotaciona "RestController" para dotar de esas funcionalidades a nuestra clase*/
 @RestController
-@RequestMapping(value="/cars") //Nos permitira modelar toda la funcionalidad alrededor de una misma ruta
+
+/* Esta anotacion nos permitira modelar toda la funcionalidad alrededor de una misma ruta pero bajo distintos
+   metodos HTTP */
+@RequestMapping(value="/cars")
 public class CarsController {
     
 
@@ -24,21 +26,22 @@ public class CarsController {
     }
 
     @GetMapping(value = "/{id}")
-    //La dependencia PathVariable nos permite manejar los parametros que son enviados junto a nuestra ruta
+    //La anotacion PathVariable nos permite manejar los parametros que son enviados junto a nuestra ruta
     public Car getCarById(@PathVariable String id){
         return new Car();
     }
 
     @PutMapping
-    /*La dependencia de RequestBody nos permite recibir un JSON que sera convertido al formato especificado
+    /*La anotacion RequestBody nos permite recibir un JSON que sera convertido al formato especificado
       en el parametro de entrada*/
-    public Car createCar(@RequestBody Car car){
-        return car;
+    public void createCar(@RequestBody Car car){
+        car = new Car();
     }
 
     @PostMapping(value="/{id}")
-    public Car updateCarById(@PathVariable String id, @RequestBody Car car){
-        return car;
+    /* Podremos combinar el uso de distintas anotaciones en los parametros de nuestros metodos*/
+    public void updateCarById(@PathVariable String id, @RequestBody Car car){
+        car = new Car();
     }
 
     @DeleteMapping(value="/{id}")
