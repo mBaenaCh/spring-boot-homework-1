@@ -4,9 +4,8 @@ import com.mateo.cars.domain.Car;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,20 +41,20 @@ public class DatasourceBDCarsRepository implements CarsRepository{
                 Connection connection = dataSource.getConnection();
 
                 //Y con la conexion realizada se ejecuta el query que deseamos
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                PreparedStatement ps = connection.prepareStatement(query);
             ){
             /*  En esta seccion nos queda insertar el objeto a la base de datos con el retorno del valor
             *   de sus propiedades y asignacion a cada parametro esperado en la consulta (?)
             */
-            preparedStatement.setString(1, car.getId());
-            preparedStatement.setString(2, car.getBrand());
-            preparedStatement.setString(3, car.getModel());
-            preparedStatement.setInt(4, car.getYearOfProduction());
-            preparedStatement.setString(5, car.getColor());
+            ps.setString(1, car.getId());
+            ps.setString(2, car.getBrand());
+            ps.setString(3, car.getModel());
+            ps.setInt(4, car.getYearOfProduction());
+            ps.setString(5, car.getColor());
 
             /* Finalmente solo queda ejectura el query deseado, posteriormente cerramos la conexion
             *  dado que es lo que recomienda la documentacion del "PreparedStatement de JDBC de PostgreSQL*/
-            preparedStatement.executeQuery().close();
+            ps.executeQuery().close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -63,7 +62,27 @@ public class DatasourceBDCarsRepository implements CarsRepository{
 
     @Override
     public List<Car> getAllCars() {
-        return null;
+        List<Car> cars = new ArrayList<>();
+        String query = "SELECT * FROM cars_mateobch";
+
+        try (
+                Connection connection = dataSource.getConnection();
+                Statement est = connection.createStatement();
+                ResultSet rs = est.executeQuery(query);
+                ){
+            while(rs.next()){
+                String id = rs.getString("car_id");
+                String brand = rs.getString("brand");
+                String model = rs.getString("model");
+                int yearOfProduction = rs.getInt("yearOfProduction");
+                String color = rs.getString("color");
+                Car car = new Car(id, brand, model, yearOfProduction, color);
+                cars.add(car);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return cars;
     }
 
     @Override
