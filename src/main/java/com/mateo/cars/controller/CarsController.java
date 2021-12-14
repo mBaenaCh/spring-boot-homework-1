@@ -34,7 +34,7 @@ public class CarsController {
         this.carsRepository = carsRepository;
     }
 
-    @PutMapping
+    @PostMapping
     /*La anotacion RequestBody nos permite recibir un JSON que sera convertido al formato especificado
       en el parametro de entrada*/
     public void createCar(
@@ -54,7 +54,7 @@ public class CarsController {
         return carsRepository.getCarById(id);
     }
 
-    @PostMapping(value="/{id}")
+    @PutMapping(value="/{id}")
     /* Podremos combinar el uso de distintas anotaciones en los parametros de nuestros metodos*/
     public void updateCarById(
             @PathVariable String id,

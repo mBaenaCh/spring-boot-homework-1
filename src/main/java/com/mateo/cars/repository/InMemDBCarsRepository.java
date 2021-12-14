@@ -5,11 +5,11 @@ package com.mateo.cars.repository;
 * */
 
 import com.mateo.cars.domain.Car;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@Component
 public class InMemDBCarsRepository implements CarsRepository{
     /*Definimos el uso de una estructura de datos "Map" que es similar a un Dict de Python (par clave-valor)
       solo que este cuenta con un campo de "id" y el "objeto" o "elemento" que corresponde a esa "id"
@@ -33,7 +33,8 @@ public class InMemDBCarsRepository implements CarsRepository{
 
     @Override
     public List<Car> getAllCars() {
-        return (List<Car>) database.values();
+        Collection<Car> cars = database.values();
+        return new ArrayList<>(cars);
     }
 
     @Override
