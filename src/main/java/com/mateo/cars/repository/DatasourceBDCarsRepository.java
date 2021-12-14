@@ -98,7 +98,40 @@ public class DatasourceBDCarsRepository implements CarsRepository{
 
     @Override
     public Car getCarById(String id) {
-        return null;
+
+        /* En este caso solo debemos mapear un objeto basado en lo que nos retorne una consulta
+        *
+        *  La consulta debera recibir como parametro el "id" del objeto que queremos retornar,
+        *  por tanto, vamos a usar un PreparedStatement para evitar la SQL-Injection a la que nos
+        *  expone un Statement al concatenarle parametros que queramos usar*/
+        String query = "SELECT * FROM cars_mateobch WHERE car_id = ?";
+        Car car = new Car();
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
+                ){
+            // Asignamos al primer parametro de la consulta el valor del parametro recibido en el metodo
+            ps.setString(1, id);
+            /* En base a la ejecucion del query, guardaremos el resultado de esta consulta para mapear
+               un objeto en funcion de nuestro modelo*/
+            ResultSet rs = ps.executeQuery();
+
+            // Validamos si se encontro un elemento
+            if(!rs.next()){
+                throw new SQLException("The element was not found");
+            }else{
+                //Mapeamos nuestro objeto de retorno en funcion del elemento obtenido
+                car.setId(rs.getString("car_id"));
+                car.setBrand(rs.getString("brand"));
+                car.setModel(rs.getString("model"));
+                car.setYearOfProduction(rs.getInt("yearOfProduction"));
+                car.setColor(rs.getString("color"));
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return car;
     }
 
     @Override
