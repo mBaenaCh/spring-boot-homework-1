@@ -7,7 +7,7 @@ public class CarColor {
 
     /* Para esta propiedad validaremos:
     *   - Que la propiedad no sea vacia
-    *   - Que esta no tenga masd e 50 caracteres
+    *   - Que esta no tenga mas de 50 caracteres
     *   - Que no use caracteres especiales
     *   - No puede contener caracteres numericos
     *   - Recortaremos el espacio en blanco sobrante
