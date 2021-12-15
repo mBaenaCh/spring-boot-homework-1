@@ -54,9 +54,55 @@ class CarBrandTest {
     }
 
     @Test
-    public void shouldReturnIllegalArgumentExceptionWhenTheValueDoesntComplyTheRegex(){
+    public void shouldReturnIllegalArgumentExceptionWhenTheValueDoesntComplyTheRegexBecauseOfSpecialChars(){
         //Arrange
+        String value="Nam quis nulla. Integer malesuada. $";
 
-        
+        //Act
+        Executable executable = () -> new CarBrand(value);
+
+        //Assert
+        assertThrows(IllegalArgumentException.class, executable);
+
     }
+
+    @Test
+    public void shouldReturnIllegalArgumentExceptionWhenTheValueDoesntComplyTheRegexBecauseOfNumberChars(){
+        //Arrange
+        String value="Nam quis nulla.1 Integer malesuada. 1";
+
+        //Act
+        Executable executable = () -> new CarBrand(value);
+
+        //Assert
+        assertThrows(IllegalArgumentException.class, executable);
+
+    }
+
+    @Test
+    public void shouldReturnIllegalArgumentExceptionWhenTheValueDoesntComplyTheRegexBecauseOfExtraChars(){
+        //Arrange
+        String value="Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio ";
+
+        //Act
+        Executable executable = () -> new CarBrand(value);
+
+        //Assert
+        assertThrows(IllegalArgumentException.class, executable);
+
+    }
+
+    @Test
+    public void shouldReturnIllegalArgumentExceptionWhenTheValueDoesntComplyTheRegexByAnyMeans(){
+        //Arrange
+        String value="Nam quis nulla. Integer malesuada. In  $ @ 1231";
+
+        //Act
+        Executable executable = () -> new CarBrand(value);
+
+        //Assert
+        assertThrows(IllegalArgumentException.class, executable);
+    }
+
+
 }
