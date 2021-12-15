@@ -6,7 +6,8 @@ plugins {
 
 group = 'com.mateo'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+//sourceCompatibility = '17'
+sourceCompatibility = '8'
 
 repositories {
 	mavenCentral()
@@ -17,7 +18,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
-	implementation group: 'com.zaxxer', 'name': 'HikariCP', 'version': '5.0.0'
+	//	For Java 17
+	// implementation group: 'com.zaxxer', 'name': 'HikariCP', 'version': '5.0.0'
+	// For Java 8
+	implementation group: 'com.zaxxer', 'name': 'HikariCP', 'version': '4.0.3'
 }
 
 test {
