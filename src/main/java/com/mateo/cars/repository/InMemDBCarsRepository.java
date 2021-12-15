@@ -7,9 +7,7 @@ package com.mateo.cars.repository;
 import com.mateo.cars.domain.Car;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //@Component
 public class InMemDBCarsRepository implements CarsRepository{
@@ -35,7 +33,8 @@ public class InMemDBCarsRepository implements CarsRepository{
 
     @Override
     public List<Car> getAllCars() {
-        return (List<Car>) database.values();
+        Collection<Car> cars = database.values();
+        return new ArrayList<>(cars);
     }
 
     @Override
