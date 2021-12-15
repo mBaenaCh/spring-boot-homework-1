@@ -162,6 +162,18 @@ public class DatasourceBDCarsRepository implements CarsRepository{
 
     @Override
     public void deleteCarById(String id) {
+        /* Realmente solo cambia la query a usar, la implementacion es similar al update y nuevamente se usa un PreparedStatement
+        *  para evitar una vulneracion por SQL Injection al concatenar variables al String de Query*/
 
+        String query = "DELETE FROM cars_mateobch WHERE car_id = ?";
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
+                ){
+            ps.setString(1, id);
+            ps.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
