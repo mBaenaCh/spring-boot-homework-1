@@ -35,12 +35,14 @@ public class CarBrand {
         if(!isValid){
             throw new IllegalArgumentException("The given car brand name cannot have special characters or numbers");
         }
-        /* Solo nos queda validar nuestro valor en funcion de la expresion regular*/
-        this.value = trimmedValue;
 
+        this.value = trimmedValue;
     }
 
-    public String getValue(){
-        return this.value;
+    @Override
+    public String toString() {
+        return "CarBrand{" +
+                "value='" + value + '\'' +
+                '}';
     }
 }

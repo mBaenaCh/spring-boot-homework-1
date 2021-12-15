@@ -1,12 +1,14 @@
 package com.mateo.cars.domain;
 
+import java.util.Objects;
+
 public class Car {
     /* Para validar el uso de mis modelos del dominio debere añadir clases validadoras por cada
     *  parametro sobre el cual desee realizar validaciones
     * */
 
     private String id;
-    private String brand;
+    private CarBrand brand;
     private String model;
     private int yearOfProduction;
     private String color;
@@ -15,7 +17,9 @@ public class Car {
     }
 
 
-    public Car(String id,String brand, String model, int yearOfProduction, String color) {
+    public Car(String id, CarBrand brand, String model, int yearOfProduction, String color) {
+        Objects.requireNonNull(brand, "Car brand name must not be an empty value");
+
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -31,11 +35,11 @@ public class Car {
         this.id = id;
     }
 
-    public String getBrand() {
+    public CarBrand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(CarBrand brand) {
         this.brand = brand;
     }
 
