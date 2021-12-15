@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
@@ -34,5 +35,17 @@ public class DatabaseConnectionConfiguration {
         config.setPassword("postgres");
 
         return new HikariDataSource(config);
+    }
+
+    /* Este bean de configuracion nos permitira usar el datasource para simplificar la definicion
+     *  de las funcionalidades que hara nuestro repository.
+
+       Con el uso del JDBC Template de spring no nos tendremos que preocupar por las operaciones de
+       bajo nivel que resultan de la interaccion (conexion) con la base de datos
+     */
+
+    @Bean
+    public JdbcTemplate jdbcTemplate( DataSource dataSource){
+        return new JdbcTemplate(dataSource);
     }
 }
