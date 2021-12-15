@@ -10,11 +10,11 @@ public class CarBrand {
     *       - No se pueden ingresar un valor vacio
     *       - El valor no puede contener valores numericos
     *       - El valor no puede contener caracteres especiales
-    *       - No se deben tener mas de 100 caracteres
+    *       - No se deben tener mas de 80 caracteres
     *       - Se recortaran los espacios vacios ingresados
     * */
 
-    private static final Pattern pattern = Pattern.compile("^[a-zA-Z]{0,100}$");
+    private static final Pattern pattern = Pattern.compile("^[a-zA-Z]{0,80}$");
 
     private final String value;
 
@@ -27,7 +27,7 @@ public class CarBrand {
         String trimmedValue = value.trim();
 
         //Validamos que el valor recibido se encuentre dentro de un rango especificado
-        if(trimmedValue.length() == 0 || trimmedValue.length() > 100){
+        if(trimmedValue.length() == 0 || trimmedValue.length() > 80){
             throw new IllegalArgumentException("The given car brand name cannot be empty or have more than 100 characters");
         }
         //Validamos que el valor cumpla las condiciones de la expresion regular
@@ -45,4 +45,5 @@ public class CarBrand {
                 "value='" + value + '\'' +
                 '}';
     }
+
 }
