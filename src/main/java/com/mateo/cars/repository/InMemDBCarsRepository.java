@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
+//@Component
 public class InMemDBCarsRepository implements CarsRepository{
     /*Definimos el uso de una estructura de datos "Map" que es similar a un Dict de Python (par clave-valor)
       solo que este cuenta con un campo de "id" y el "objeto" o "elemento" que corresponde a esa "id"
