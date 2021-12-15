@@ -1,5 +1,8 @@
 package com.mateo.cars.domain;
 
+import jdk.vm.ci.meta.Local;
+
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Car {
@@ -10,20 +13,21 @@ public class Car {
     private String id;
     private CarBrand brand;
     private CarModel model;
-    private int yearOfProduction;
+    private LocalDate dateOfProduction;
     private String color;
 
     public Car() {
     }
 
 
-    public Car(String id, CarBrand brand, CarModel model, int yearOfProduction, String color) {
+    public Car(String id, CarBrand brand, CarModel model, LocalDate dateOfProduction, String color) {
         Objects.requireNonNull(brand, "Car brand name must not be an empty value");
         Objects.requireNonNull(model, "The car model name must not be an empty value");
+        Objects.requireNonNull(dateOfProduction, "The ");
         this.id = id;
         this.brand = brand;
         this.model = model;
-        this.yearOfProduction = yearOfProduction;
+        this.dateOfProduction = dateOfProduction;
         this.color = color;
     }
 
@@ -51,12 +55,12 @@ public class Car {
         this.model = model;
     }
 
-    public int getYearOfProduction() {
-        return yearOfProduction;
+    public LocalDate getYearOfProduction() {
+        return dateOfProduction;
     }
 
-    public void setYearOfProduction(int yearOfProduction) {
-        this.yearOfProduction = yearOfProduction;
+    public void setYearOfProduction(LocalDate dateOfProduction) {
+        this.dateOfProduction = dateOfProduction;
     }
 
     public String getColor() {
@@ -73,7 +77,7 @@ public class Car {
                 "id='" + id + '\'' +
                 ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
-                ", yearOfProduction=" + yearOfProduction +
+                ", dateOfProduction=" + dateOfProduction +
                 ", color='" + color + '\'' +
                 '}';
     }
