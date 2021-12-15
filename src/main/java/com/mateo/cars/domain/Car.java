@@ -9,7 +9,7 @@ public class Car {
 
     private String id;
     private CarBrand brand;
-    private String model;
+    private CarModel model;
     private int yearOfProduction;
     private String color;
 
@@ -17,9 +17,9 @@ public class Car {
     }
 
 
-    public Car(String id, CarBrand brand, String model, int yearOfProduction, String color) {
+    public Car(String id, CarBrand brand, CarModel model, int yearOfProduction, String color) {
         Objects.requireNonNull(brand, "Car brand name must not be an empty value");
-
+        Objects.requireNonNull(model, "The car model name must not be an empty value");
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -43,11 +43,11 @@ public class Car {
         this.brand = brand;
     }
 
-    public String getModel() {
+    public CarModel getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    public void setModel(CarModel model) {
         this.model = model;
     }
 
