@@ -12,7 +12,7 @@ import java.util.List;
 /*  Nuevamente definimos el repositorio con la anotacion de Componente
     dado que es Bean de la interface que implementa
 * */
-@Component
+//@Component
 public class DatasourceBDCarsRepository implements CarsRepository{
 
     /*  Instanciamos un objeto del tipo datasource que sera usado para la gestion
