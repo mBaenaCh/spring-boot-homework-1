@@ -1,60 +1,80 @@
 package com.mateo.cars.domain;
 
+import jdk.vm.ci.meta.Local;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class Car {
-    private String id;
-    private String brand;
-    private String model;
-    private int yearOfProduction;
-    private String color;
+    /* Para validar el uso de mis modelos del dominio debere añadir clases validadoras por cada
+    *  parametro sobre el cual desee realizar validaciones
+    *
+    *  En el caso del yearOfProduction:
+    *   - Lo renombraremos y le asignaremos otro tipo de variable para usar correctamente las fechas en Java
+    *   - Usaremos un objeto LocalDate de tipo Date para mapear una fecha en formato YYYY-MM-DD
+    *    - Validaremos que este no sea vacio
+     */
+
+    private CarId id;
+    private CarBrand brand;
+    private CarModel model;
+    private LocalDate dateOfProduction;
+    private CarColor color;
 
     public Car() {
     }
 
-    public Car(String id,String brand, String model, int yearOfProduction, String color) {
+
+    public Car(CarId id, CarBrand brand, CarModel model, LocalDate dateOfProduction, CarColor color) {
+        Objects.requireNonNull(id, "The car id must not be an empty value");
+        Objects.requireNonNull(brand, "The car brand name must not be an empty value");
+        Objects.requireNonNull(model, "The car model name must not be an empty value");
+        Objects.requireNonNull(dateOfProduction, "The date of production must not be an empty value");
+        Objects.requireNonNull(color, "The car color name must not be an empty value");
         this.id = id;
         this.brand = brand;
         this.model = model;
-        this.yearOfProduction = yearOfProduction;
+        this.dateOfProduction = dateOfProduction;
         this.color = color;
     }
 
-    public String getId() {
+    public CarId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(CarId id) {
         this.id = id;
     }
 
-    public String getBrand() {
+    public CarBrand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(CarBrand brand) {
         this.brand = brand;
     }
 
-    public String getModel() {
+    public CarModel getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    public void setModel(CarModel model) {
         this.model = model;
     }
 
-    public int getYearOfProduction() {
-        return yearOfProduction;
+    public LocalDate getYearOfProduction() {
+        return dateOfProduction;
     }
 
-    public void setYearOfProduction(int yearOfProduction) {
-        this.yearOfProduction = yearOfProduction;
+    public void setYearOfProduction(LocalDate dateOfProduction) {
+        this.dateOfProduction = dateOfProduction;
     }
 
-    public String getColor() {
+    public CarColor getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(CarColor color) {
         this.color = color;
     }
 
@@ -64,7 +84,7 @@ public class Car {
                 "id='" + id + '\'' +
                 ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
-                ", yearOfProduction=" + yearOfProduction +
+                ", dateOfProduction=" + dateOfProduction +
                 ", color='" + color + '\'' +
                 '}';
     }
