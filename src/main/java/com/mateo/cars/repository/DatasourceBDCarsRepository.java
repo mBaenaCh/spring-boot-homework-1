@@ -54,7 +54,7 @@ public class DatasourceBDCarsRepository implements CarsRepository{
 
             /* Finalmente solo queda ejectura el query deseado, posteriormente cerramos la conexion
             *  dado que es lo que recomienda la documentacion del "PreparedStatement de JDBC de PostgreSQL*/
-            ps.executeQuery().close();
+            ps.executeQuery().close(); //Tengo pendiente revisar porque esta linea arroja un error, parece estar asociado al uso del Close
         }catch(SQLException e){
             e.printStackTrace();
         }

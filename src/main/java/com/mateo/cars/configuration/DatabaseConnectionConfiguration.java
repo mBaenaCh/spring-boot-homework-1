@@ -29,7 +29,7 @@ public class DatabaseConnectionConfiguration {
     public DataSource dataSource (){
         /* Posteriormente solo nos queda configurar el datasource en base al de Hikari*/
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:postgresql://172.17.1.249:5432/postgres");
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
         config.setUsername("postgres");
         config.setPassword("postgres");
 
