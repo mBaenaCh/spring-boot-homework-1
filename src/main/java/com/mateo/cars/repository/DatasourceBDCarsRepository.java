@@ -85,7 +85,7 @@ public class DatasourceBDCarsRepository implements CarsRepository{
                 String id = rs.getString("car_id");
                 String brand = rs.getString("brand");
                 String model = rs.getString("model");
-                int yearOfProduction = rs.getInt("yearOfProduction");
+                int yearOfProduction = rs.getInt("year_of_production");
                 String color = rs.getString("color");
                 Car car = new Car(id, brand, model, yearOfProduction, color);
                 cars.add(car);
@@ -124,7 +124,7 @@ public class DatasourceBDCarsRepository implements CarsRepository{
                 car.setId(rs.getString("car_id"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
-                car.setYearOfProduction(rs.getInt("yearOfProduction"));
+                car.setYearOfProduction(rs.getInt("year_of_production"));
                 car.setColor(rs.getString("color"));
             }
 
@@ -136,7 +136,28 @@ public class DatasourceBDCarsRepository implements CarsRepository{
 
     @Override
     public void updateCarById(String id, Car car) {
+        /* Solo debemos actualizar nuestro elemento en funcion de los datos del objeto que son enviados por el body
+        *
+        *  Dada la logica de nuestro modelo, creo que es necesario enviar en el body todos los parametros, quizas se podria crear un constructor con menos datos?
+        *
+        *  Hay que tener cuidado con el uso de camel-case en el nombramiento de columnas, se cambia por snake-case
+        * */
+        String query = "UPDATE cars_mateobch SET car_id = ?, brand = ?, model = ?, year_of_production = ?, color = ? WHERE car_id = ?";
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
+                ){
+            ps.setString(1, car.getId());
+            ps.setString(2, car.getBrand());
+            ps.setString(3, car.getModel());
+            ps.setInt(4, car.getYearOfProduction());
+            ps.setString(5, car.getColor());
+            ps.setString(6, id);
+            ps.execute();
 
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
