@@ -7,23 +7,23 @@ import java.util.Objects;
 
 public class Car {
     /* Para validar el uso de mis modelos del dominio debere añadir clases validadoras por cada
-    *  parametro sobre el cual desee realizar validaciones
+    *  parametro sobre el cual desee realizar validaciones, estas clases hacen referencia a
+    *  Value Objects que de forma unitaria representan un objeto totalmente nuevo frente al cambio.
     *
-    *  En el caso del yearOfProduction:
+    *  Recordemos que Car en este caso es un objeto entidad porque, a pesar de que, si cambiamos alguno de
+    *  sus parametros, este objeto seguira siendo el mismo y estos cambios no retornaran uno nuevo.
+    *
+    *  En el caso de la propiedad dateOfProduction:
     *   - Lo renombraremos y le asignaremos otro tipo de variable para usar correctamente las fechas en Java
     *   - Usaremos un objeto LocalDate de tipo Date para mapear una fecha en formato YYYY-MM-DD
-    *    - Validaremos que este no sea vacio
+    *   - Validaremos que este no sea vacio
      */
 
-    private CarId id;
-    private CarBrand brand;
-    private CarModel model;
-    private LocalDate dateOfProduction;
-    private CarColor color;
-
-    public Car() {
-    }
-
+    private final CarId id;
+    private final CarBrand brand;
+    private final CarModel model;
+    private final LocalDate dateOfProduction;
+    private final CarColor color;
 
     public Car(CarId id, CarBrand brand, CarModel model, LocalDate dateOfProduction, CarColor color) {
         Objects.requireNonNull(id, "The car id must not be an empty value");
@@ -42,41 +42,22 @@ public class Car {
         return id;
     }
 
-    public void setId(CarId id) {
-        this.id = id;
-    }
-
     public CarBrand getBrand() {
         return brand;
-    }
-
-    public void setBrand(CarBrand brand) {
-        this.brand = brand;
     }
 
     public CarModel getModel() {
         return model;
     }
 
-    public void setModel(CarModel model) {
-        this.model = model;
-    }
-
     public LocalDate getYearOfProduction() {
         return dateOfProduction;
-    }
-
-    public void setYearOfProduction(LocalDate dateOfProduction) {
-        this.dateOfProduction = dateOfProduction;
     }
 
     public CarColor getColor() {
         return color;
     }
 
-    public void setColor(CarColor color) {
-        this.color = color;
-    }
 
     @Override
     public String toString() {
