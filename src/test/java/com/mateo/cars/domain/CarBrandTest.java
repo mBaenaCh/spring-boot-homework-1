@@ -104,5 +104,7 @@ class CarBrandTest {
         assertThrows(IllegalArgumentException.class, executable);
     }
 
+    /*Quedan pendientes las pruebas positivas donde se cumple*/
+
 
 }
