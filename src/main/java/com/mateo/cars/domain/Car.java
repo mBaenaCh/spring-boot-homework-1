@@ -8,7 +8,12 @@ import java.util.Objects;
 public class Car {
     /* Para validar el uso de mis modelos del dominio debere añadir clases validadoras por cada
     *  parametro sobre el cual desee realizar validaciones
-    * */
+    *
+    *  En el caso del yearOfProduction:
+    *   - Lo renombraremos y le asignaremos otro tipo de variable para usar correctamente las fechas en Java
+    *   - Usaremos un objeto LocalDate de tipo Date para mapear una fecha en formato YYYY-MM-DD
+    *    - Validaremos que este no sea vacio
+     */
 
     private String id;
     private CarBrand brand;
