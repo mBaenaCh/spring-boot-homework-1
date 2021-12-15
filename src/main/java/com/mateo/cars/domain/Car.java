@@ -1,6 +1,10 @@
 package com.mateo.cars.domain;
 
 public class Car {
+    /* Para validar el uso de mis modelos del dominio debere añadir clases validadoras por cada
+    *  parametro sobre el cual desee realizar validaciones
+    * */
+
     private String id;
     private String brand;
     private String model;
@@ -9,6 +13,7 @@ public class Car {
 
     public Car() {
     }
+
 
     public Car(String id,String brand, String model, int yearOfProduction, String color) {
         this.id = id;
