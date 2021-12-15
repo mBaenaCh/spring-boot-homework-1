@@ -36,8 +36,6 @@ public class CarModel {
     //Notese la forma anidada en como se retorna el valor debido a que este parametro es validado por medio de un objeto
     @Override
     public String toString() {
-        return "CarModel{" +
-                "value='" + value + '\'' +
-                '}';
+        return value;
     }
 }

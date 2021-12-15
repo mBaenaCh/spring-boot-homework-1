@@ -36,8 +36,6 @@ public class CarColor {
 
     @Override
     public String toString() {
-        return "CarColor{" +
-                "value='" + value + '\'' +
-                '}';
+        return value;
     }
 }

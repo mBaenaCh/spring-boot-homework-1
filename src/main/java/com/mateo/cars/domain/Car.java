@@ -15,7 +15,7 @@ public class Car {
     *    - Validaremos que este no sea vacio
      */
 
-    private String id;
+    private CarId id;
     private CarBrand brand;
     private CarModel model;
     private LocalDate dateOfProduction;
@@ -25,8 +25,9 @@ public class Car {
     }
 
 
-    public Car(String id, CarBrand brand, CarModel model, LocalDate dateOfProduction, CarColor color) {
-        Objects.requireNonNull(brand, "Car brand name must not be an empty value");
+    public Car(CarId id, CarBrand brand, CarModel model, LocalDate dateOfProduction, CarColor color) {
+        Objects.requireNonNull(id, "The car id must not be an empty value");
+        Objects.requireNonNull(brand, "The car brand name must not be an empty value");
         Objects.requireNonNull(model, "The car model name must not be an empty value");
         Objects.requireNonNull(dateOfProduction, "The date of production must not be an empty value");
         Objects.requireNonNull(color, "The car color name must not be an empty value");
@@ -37,11 +38,11 @@ public class Car {
         this.color = color;
     }
 
-    public String getId() {
+    public CarId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(CarId id) {
         this.id = id;
     }
 

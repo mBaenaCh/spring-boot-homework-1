@@ -41,9 +41,7 @@ public class CarBrand {
 
     @Override
     public String toString() {
-        return "CarBrand{" +
-                "value='" + value + '\'' +
-                '}';
+        return value;
     }
 
 }
