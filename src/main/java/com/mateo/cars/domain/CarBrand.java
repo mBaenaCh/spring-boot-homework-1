@@ -33,7 +33,7 @@ public class CarBrand {
         //Validamos que el valor cumpla las condiciones de la expresion regular
         Boolean isValid = pattern.matcher(trimmedValue).matches();
         if(!isValid){
-            throw new IllegalArgumentException("The given car brand name cannot have special characters or numbers");
+            throw new IllegalArgumentException("The given car brand name cannot have any special characters or numbers in it");
         }
 
         this.value = trimmedValue;
