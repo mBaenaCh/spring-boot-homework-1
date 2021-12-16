@@ -44,7 +44,20 @@ class CarColorTest {
 
     }
 
-    
+    @Test
+    public void shouldReturnIllegalArgumentExceptionWhenTheValueDoesNotComplyWithTheRegex(){
+        //Arrange
+        String value ="Nam quis nulla. Integer malesua121$@. In in enim a";
+
+        //Act
+        Executable executable = () -> new CarColor(value);
+
+        //Assert
+        assertThrows(IllegalArgumentException.class, executable);
+        
+    }
+
+
 
 
 
