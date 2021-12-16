@@ -18,5 +18,22 @@ class CarColorTest {
         assertThrows(IllegalArgumentException.class, executable);
     }
 
+    @Test
+    public void shouldReturnIllegalArgumentExceptionWhenTheValueIsEmpty(){
+        //Arrange
+        String value = "";
+
+        //Act
+        Executable executable = () -> new CarColor(value);
+
+        //Assert
+        assertThrows(IllegalArgumentException.class, executable);
+
+    }
+
+    
+
+
+
 
 }
