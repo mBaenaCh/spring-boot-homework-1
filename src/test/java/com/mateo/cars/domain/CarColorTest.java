@@ -31,7 +31,22 @@ class CarColorTest {
 
     }
 
+    @Test
+    public void shoudlReturnIllegalArgumentExceptionWhenTheValueIsGreaterThan50Chars(){
+        //Arrange
+        String value ="Nam quis nulla. Integer malesuada. In in enim a ara";
+
+        //Act
+        Executable executable = () -> new CarColor(value);
+
+        //Assert
+        assertThrows(IllegalArgumentException.class, executable);
+
+    }
+
     
+
+
 
 
 
