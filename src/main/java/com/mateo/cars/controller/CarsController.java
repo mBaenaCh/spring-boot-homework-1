@@ -66,7 +66,9 @@ public class CarsController {
     //La anotacion PathVariable nos permite manejar los parametros que son enviados junto a nuestra ruta
     public Car getCarById(
             @PathVariable String id){
-        return carsRepository.getCarById(id);
+
+        CarId carId = CarId.getUUID(id);
+        return carService.getCarById(carId);
     }
 
     @PutMapping(value="/{id}")
