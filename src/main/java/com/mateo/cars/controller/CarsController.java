@@ -1,12 +1,8 @@
 package com.mateo.cars.controller;
 
-import com.mateo.cars.domain.Car;
-import com.mateo.cars.domain.CarBrand;
-import com.mateo.cars.domain.CarId;
-import com.mateo.cars.domain.CarModel;
+import com.mateo.cars.domain.*;
 import com.mateo.cars.model.CreateCarInput;
 import com.mateo.cars.model.CreateCarOutput;
-import com.mateo.cars.repository.CarsRepository;
 import com.mateo.cars.service.CarService;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,15 +42,24 @@ public class CarsController {
       en el parametro de entrada*/
     public CreateCarOutput createCar(
             @RequestBody CreateCarInput input){
-        CarBrand carBrand = new CarBrand(input.getBrand());
-        LocalDate dateOfProduction = input.getDateOfProduction();
+        /* Posteriormente solo nos queda procesar los datos recibidos en el input hacia
+        *  la tipologia de datos que se espera en el modelo del dominio */
         CarId id = CarId.generateCarId();
-        Car car = new Car(id, carBrand,  )
+        CarBrand carBrand = new CarBrand(input.getBrand());
+        CarModel carModel = new CarModel(input.getModel());
+        LocalDate dateOfProduction = input.getDateOfProduction();
+        CarColor carColor = new CarColor(input.getColor());
+
+        /* Creamos una instancia basada en el modelo del dominio para su gestion en las capas subyacentes*/
+        Car car = new Car(id, carBrand, carModel, dateOfProduction, carColor);
+        Car createdCar = carService.createCar(car);
+
+        return new CreateCarOutput(createdCar);
     }
 
     @GetMapping
     public List<Car> getCars(){
-        return carsRepository.getAllCars();
+        return carService.getAllCars();
     }
 
     @GetMapping(value = "/{id}")

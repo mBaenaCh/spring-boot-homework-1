@@ -19,11 +19,14 @@ public class CarService {
         this.repository = repository;
     }
 
-    public void createCar(Car car){
+    public Car createCar(Car car){
+
         this.repository.createCar(car);
+
+    return car;
     }
 
-    public List<Car> carList(){
+    public List<Car> getAllCars(){
         return repository.getAllCars();
     }
 
