@@ -12,7 +12,7 @@ import com.mateo.cars.domain.CarColor;
 import java.io.IOException;
 
 public class CarColorParser {
-    public class Serialize extends JsonSerializer<CarColor>{
+    public static class Serializer extends JsonSerializer<CarColor>{
 
         @Override
         public void serialize(CarColor value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -20,7 +20,7 @@ public class CarColorParser {
         }
     }
 
-    public static class Deserialize extends JsonDeserializer<CarColor>{
+    public static class Deserializer extends JsonDeserializer<CarColor>{
 
         @Override
         public CarColor deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
