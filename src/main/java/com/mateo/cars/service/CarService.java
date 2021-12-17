@@ -39,7 +39,7 @@ public class CarService {
         repository.updateCarById(id, car);
     }
 
-    public void deleteCarById(String id){
+    public void deleteCarById(CarId id){
         repository.deleteCarById(id);
     }
 

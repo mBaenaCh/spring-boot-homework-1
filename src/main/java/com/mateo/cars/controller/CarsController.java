@@ -90,7 +90,10 @@ public class CarsController {
     @DeleteMapping(value="/{id}")
     public void deleteCarById(
             @PathVariable String id){
-        carsRepository.deleteCarById(id);
+
+        CarId carId = CarId.getUUID(id);
+
+        carService.deleteCarById(carId);
     }
 
 }
