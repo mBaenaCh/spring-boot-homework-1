@@ -1,7 +1,4 @@
 package com.mateo.cars.domain;
-
-import jdk.vm.ci.meta.Local;
-
 import java.time.LocalDate;
 import java.util.Objects;
 

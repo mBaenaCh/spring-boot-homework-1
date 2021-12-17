@@ -14,6 +14,7 @@ package com.mateo.cars.repository;
 * */
 
 import com.mateo.cars.domain.Car;
+import com.mateo.cars.domain.CarId;
 
 
 import java.util.List;
@@ -26,10 +27,10 @@ public interface CarsRepository {
 
     List<Car> getAllCars();
 
-    Car getCarById(String id);
+    Car getCarById(CarId id);
 
-    void updateCarById(String id, Car car);
+    void updateCarById(CarId id, Car car);
 
-    void deleteCarById(String id);
+    void deleteCarById(CarId id);
 
 }

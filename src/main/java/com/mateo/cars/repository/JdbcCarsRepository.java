@@ -1,10 +1,11 @@
 package com.mateo.cars.repository;
 
-import com.mateo.cars.domain.Car;
+import com.mateo.cars.domain.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -33,11 +34,11 @@ public class JdbcCarsRepository implements CarsRepository{
     *  PENDIENTE: Crear un CarMapper que implemente de RowMapper<Car>
     * */
     private final RowMapper<Car> rowMapper = (resultSet, rowNum) -> {
-        String id = resultSet.getString("car_id");
-        String brand = resultSet.getString("brand");
-        String model = resultSet.getString("model");
-        int yearOfProduction = resultSet.getInt("year_of_production");
-        String color = resultSet.getString("color");
+        CarId id = CarId.getUUID(resultSet.getString("car_id"));
+        CarBrand brand = new CarBrand(resultSet.getString("brand"));
+        CarModel model = new CarModel(resultSet.getString("model"));
+        LocalDate yearOfProduction = resultSet.getDate("year_of_production").toLocalDate(); //Solo toca parsear a LocalDate
+        CarColor color = new CarColor(resultSet.getString("color"));
         return new Car(
                 id,
                 brand,
@@ -65,19 +66,19 @@ public class JdbcCarsRepository implements CarsRepository{
     }
 
     @Override
-    public Car getCarById(String id) {
+    public Car getCarById(CarId id) {
         String query = "SELECT * FROM cars_mateobch WHERE car_id = ?";
-        return jdbcTemplate.queryForObject(query, rowMapper, id);
+        return jdbcTemplate.queryForObject(query, rowMapper, id.toString());
     }
 
     @Override
-    public void updateCarById(String id, Car car) {
+    public void updateCarById(CarId id, Car car) {
         String query = "UPDATE cars_mateobch SET car_id = ?, brand = ?, model = ?, year_of_production = ?, color = ? WHERE car_id = ?";
-        jdbcTemplate.update(query, id, car.getBrand(), car.getModel(), car.getYearOfProduction(), car.getColor(), id);
+        jdbcTemplate.update(query, id.toString(), car.getBrand().toString(), car.getModel().toString(), car.getYearOfProduction(), car.getColor().toString(), id.toString());
     }
 
     @Override
-    public void deleteCarById(String id) {
+    public void deleteCarById(CarId id) {
         String query = "DELETE FROM cars_mateobch WHERE car_id = ?";
         jdbcTemplate.update(query, id);
     }
