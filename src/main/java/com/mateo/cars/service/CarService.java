@@ -35,7 +35,7 @@ public class CarService {
         return repository.getCarById(id);
     }
 
-    public void updateCarById(String id, Car car){
+    public void updateCarById(CarId id, Car car){
         repository.updateCarById(id, car);
     }
 

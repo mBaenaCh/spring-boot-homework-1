@@ -75,8 +75,16 @@ public class CarsController {
     /* Podremos combinar el uso de distintas anotaciones en los parametros de nuestros metodos*/
     public void updateCarById(
             @PathVariable String id,
-            @RequestBody Car car){
-        carsRepository.updateCarById(id, car);
+            @RequestBody CreateCarInput car){
+
+        CarId carId = CarId.getUUID(id);
+        CarBrand carBrand = new CarBrand(car.getBrand());
+        CarModel carModel = new CarModel(car.getModel());
+        LocalDate dateOfProduction = car.getDateOfProduction();
+        CarColor carColor = new CarColor(car.getColor());
+        Car updatedCar = new Car(carId, carBrand, carModel, dateOfProduction, carColor);
+
+        carService.updateCarById(carId, updatedCar);
     }
 
     @DeleteMapping(value="/{id}")
