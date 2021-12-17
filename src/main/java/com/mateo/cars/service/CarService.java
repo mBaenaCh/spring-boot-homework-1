@@ -1,6 +1,7 @@
 package com.mateo.cars.service;
 
 import com.mateo.cars.domain.Car;
+import com.mateo.cars.domain.CarId;
 import com.mateo.cars.repository.CarsRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,23 +20,26 @@ public class CarService {
         this.repository = repository;
     }
 
-    public void createCar(Car car){
+    public Car createCar(Car car){
+
         this.repository.createCar(car);
+
+    return car;
     }
 
-    public List<Car> carList(){
+    public List<Car> getAllCars(){
         return repository.getAllCars();
     }
 
-    public Car getCarById(String id){
+    public Car getCarById(CarId id){
         return repository.getCarById(id);
     }
 
-    public void updateCarById(String id, Car car){
+    public void updateCarById(CarId id, Car car){
         repository.updateCarById(id, car);
     }
 
-    public void deleteCarById(String id){
+    public void deleteCarById(CarId id){
         repository.deleteCarById(id);
     }
 

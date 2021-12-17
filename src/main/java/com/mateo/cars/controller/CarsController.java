@@ -1,9 +1,12 @@
 package com.mateo.cars.controller;
 
-import com.mateo.cars.domain.Car;
-import com.mateo.cars.repository.CarsRepository;
+import com.mateo.cars.domain.*;
+import com.mateo.cars.model.CreateCarInput;
+import com.mateo.cars.model.CreateCarOutput;
+import com.mateo.cars.service.CarService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /* Con nuestro controller definiremos las funcionalidades que actuaran sobre nuestro modelo del dominio
@@ -28,44 +31,69 @@ public class CarsController {
     * Con el principio de inversion de dependencia buscamos que este primer modulo no dependa del segundo (Reducimos acoplamiento)
     * */
 
-    private CarsRepository carsRepository; //Instanciacion que nos permitira usar los metodos de la interfaz
+    private CarService carService; //Instanciacion que nos permitira usar los metodos de la interfaz
 
-    public CarsController(CarsRepository carsRepository) {
-        this.carsRepository = carsRepository;
+    public CarsController(CarService carsService) {
+        this.carService= carsService;
     }
 
     @PostMapping
     /*La anotacion RequestBody nos permite recibir un JSON que sera convertido al formato especificado
       en el parametro de entrada*/
-    public void createCar(
-            @RequestBody Car car){
-        carsRepository.createCar(car);
+    public CreateCarOutput createCar(
+            @RequestBody CreateCarInput input){
+        /* Posteriormente solo nos queda procesar los datos recibidos en el input hacia
+        *  la tipologia de datos que se espera en el modelo del dominio */
+        CarId id = CarId.generateCarId();
+        CarBrand carBrand = new CarBrand(input.getBrand());
+        CarModel carModel = new CarModel(input.getModel());
+        LocalDate dateOfProduction = input.getDateOfProduction();
+        CarColor carColor = new CarColor(input.getColor());
+
+        /* Creamos una instancia basada en el modelo del dominio para su gestion en las capas subyacentes*/
+        Car car = new Car(id, carBrand, carModel, dateOfProduction, carColor);
+        Car createdCar = carService.createCar(car);
+
+        return new CreateCarOutput(createdCar);
     }
 
     @GetMapping
     public List<Car> getCars(){
-        return carsRepository.getAllCars();
+        return carService.getAllCars();
     }
 
     @GetMapping(value = "/{id}")
     //La anotacion PathVariable nos permite manejar los parametros que son enviados junto a nuestra ruta
     public Car getCarById(
             @PathVariable String id){
-        return carsRepository.getCarById(id);
+
+        CarId carId = CarId.getUUID(id);
+        return carService.getCarById(carId);
     }
 
     @PutMapping(value="/{id}")
     /* Podremos combinar el uso de distintas anotaciones en los parametros de nuestros metodos*/
     public void updateCarById(
             @PathVariable String id,
-            @RequestBody Car car){
-        carsRepository.updateCarById(id, car);
+            @RequestBody CreateCarInput car){
+
+        CarId carId = CarId.getUUID(id);
+        CarBrand carBrand = new CarBrand(car.getBrand());
+        CarModel carModel = new CarModel(car.getModel());
+        LocalDate dateOfProduction = car.getDateOfProduction();
+        CarColor carColor = new CarColor(car.getColor());
+        Car updatedCar = new Car(carId, carBrand, carModel, dateOfProduction, carColor);
+
+        carService.updateCarById(carId, updatedCar);
     }
 
     @DeleteMapping(value="/{id}")
     public void deleteCarById(
             @PathVariable String id){
-        carsRepository.deleteCarById(id);
+
+        CarId carId = CarId.getUUID(id);
+
+        carService.deleteCarById(carId);
     }
 
 }
