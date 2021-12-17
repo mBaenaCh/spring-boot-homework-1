@@ -1,9 +1,16 @@
 package com.mateo.cars.controller;
 
 import com.mateo.cars.domain.Car;
+import com.mateo.cars.domain.CarBrand;
+import com.mateo.cars.domain.CarId;
+import com.mateo.cars.domain.CarModel;
+import com.mateo.cars.model.CreateCarInput;
+import com.mateo.cars.model.CreateCarOutput;
 import com.mateo.cars.repository.CarsRepository;
+import com.mateo.cars.service.CarService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /* Con nuestro controller definiremos las funcionalidades que actuaran sobre nuestro modelo del dominio
@@ -28,18 +35,21 @@ public class CarsController {
     * Con el principio de inversion de dependencia buscamos que este primer modulo no dependa del segundo (Reducimos acoplamiento)
     * */
 
-    private CarsRepository carsRepository; //Instanciacion que nos permitira usar los metodos de la interfaz
+    private CarService carService; //Instanciacion que nos permitira usar los metodos de la interfaz
 
-    public CarsController(CarsRepository carsRepository) {
-        this.carsRepository = carsRepository;
+    public CarsController(CarService carsService) {
+        this.carService= carsService;
     }
 
     @PostMapping
     /*La anotacion RequestBody nos permite recibir un JSON que sera convertido al formato especificado
       en el parametro de entrada*/
-    public void createCar(
-            @RequestBody Car car){
-        carsRepository.createCar(car);
+    public CreateCarOutput createCar(
+            @RequestBody CreateCarInput input){
+        CarBrand carBrand = new CarBrand(input.getBrand());
+        LocalDate dateOfProduction = input.getDateOfProduction();
+        CarId id = CarId.generateCarId();
+        Car car = new Car(id, carBrand,  )
     }
 
     @GetMapping
